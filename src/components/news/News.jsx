@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import {  Link } from 'react-router-dom';
 
+import { NotFound } from '../../pages/NotFound'
 import s from './News.module.scss';
 
 const apiUrl = process.env.REACT_APP_API_URL;
@@ -34,19 +35,19 @@ export function News({ category, allNews = false}) {
 
          console.log(result.status)
          if (result.status === 404){
-           
-           setError(404);
-           return;
-         }
+           console.log('404 found')           
+          throw new Error(404)
+        }
+
          if (!result.ok){
-           throw new Error('Gögn ekki í lagi')
+           throw new Error('Gat ekki sótt gögn.')
          }
         
-
          json = await result.json();
          console.log(json)
        } catch (e) {
-         setError('Gat ekki sótt gögn.');
+         console.log()
+         setError(e.message);    
          return;
        } finally {
          setLoading(false);
@@ -58,14 +59,22 @@ export function News({ category, allNews = false}) {
      fetchData();
    }, [category, allNews]);
 
-   if (404){
-     
+   if(error === '404'){
+    return (
+      <div> 
+       <NotFound/>
+       </div>
+     );
    }
+
    if (error) {
     return (
       <p>Villa kom upp: {error}</p>
     );
   }
+
+ 
+   
 
   if (loading) {
     return (

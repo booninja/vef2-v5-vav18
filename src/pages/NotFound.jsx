@@ -1,10 +1,10 @@
 
 export function NotFound() {
+  console.log('insiiide')
   return (
-    <div> 
+
       <h2>
         404 fannst ekki 
       </h2>
-    </div>
   )
 }
