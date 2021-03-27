@@ -28,7 +28,6 @@ export function Index({ id = undefined, allNews = false }) {
         let json;
   
         const url = apiUrl
-        console.log(url)
         try { 
           const result = await fetch(url);
 
@@ -42,7 +41,6 @@ export function Index({ id = undefined, allNews = false }) {
           setError('Gat ekki sótt gögn.');
           return;
         } finally {
-          console.log('setLoading False')
           setLoading(false);
         }
 
@@ -66,7 +64,6 @@ export function Index({ id = undefined, allNews = false }) {
  
     if(id){
       news = news.filter((category) => {
-        console.log('filter', category)
         return category.id === id
       });
       if(news.length === 0){
@@ -83,7 +80,7 @@ export function Index({ id = undefined, allNews = false }) {
           return (
             <NewsList 
               key={i}
-              category={news}
+              category={news.id}
               allNews={allNews}
             />
           )

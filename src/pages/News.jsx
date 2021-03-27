@@ -1,4 +1,3 @@
-import { Index } from './Index';
 import { News } from '../components/news/News'
 import { useParams } from 'react-router-dom';
 
