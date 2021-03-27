@@ -1,7 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 
-const apiUrl = process.env.REACT_APP_API_URL;
+import { News } from '../news/News';
 
-export function NewsList() {
-  // TODO sækja yfirlit fréttaflokka
+import s from './NewsList.module.scss';
+
+NewsList.propTypes = {
+  category: PropTypes.string,
+  allNews: PropTypes.bool
+}
+
+export function NewsList({ category, allNews}) {
+
+  return(// TODO sækja yfirlit fréttaflokka
+    <div className={s.news}>
+      <News category={category} allNews={allNews} />
+    </div>
+  )
 }

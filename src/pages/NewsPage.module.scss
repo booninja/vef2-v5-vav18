@@ -1,0 +1,10 @@
+.news {
+  &__list {
+    padding: 0;
+    list-style: none;
+  }
+
+  &__container {
+    width: -webkit-fill-available;
+  }
+}
