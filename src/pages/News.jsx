@@ -1,4 +1,5 @@
 import { Index } from './Index';
+import { News } from '../components/news/News'
 import { useParams } from 'react-router-dom';
 
 import s from './NewsPage.module.scss';
@@ -8,7 +9,7 @@ export function NewsPage() {
 
     return (
         <section className={s.news}> 
-            <Index id={id} allNews={true} />
+            <News category={id} allNews={true} />
         </section>
     )
 }

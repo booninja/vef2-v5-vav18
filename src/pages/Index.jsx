@@ -28,7 +28,7 @@ export function Index({ id = undefined, allNews = false }) {
         let json;
   
         const url = apiUrl
-        console.log('url', apiUrl )
+        console.log(url)
         try { 
           const result = await fetch(url);
 
@@ -37,7 +37,7 @@ export function Index({ id = undefined, allNews = false }) {
           }
 
           json = await result.json();
-          console.log(json)
+
         } catch (e) {
           setError('Gat ekki sótt gögn.');
           return;
@@ -63,12 +63,15 @@ export function Index({ id = undefined, allNews = false }) {
       );
     }
     let news = data || [];
-    console.log(news)
+ 
     if(id){
       news = news.filter((category) => {
         console.log('filter', category)
         return category.id === id
       });
+      if(news.length === 0){
+
+      }
     }
     return (
       <section className={s.index}>

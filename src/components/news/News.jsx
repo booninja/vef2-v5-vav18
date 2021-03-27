@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
-
 import React, { useEffect, useState } from 'react';
+import {  Link } from 'react-router-dom';
+
 import s from './News.module.scss';
 
 const apiUrl = process.env.REACT_APP_API_URL;
@@ -21,19 +22,26 @@ export function News({ category, allNews = false}) {
      async function fetchData() {
        setLoading(true);
        setError(null);
- 
+       
        let json;
  
        const main = apiUrl
-       const type = category.id
+       const type = category.id || category
        const url = main.concat(type)
        console.log('url', apiUrl )
        try { 
          const result = await fetch(url);
 
+         console.log(result.status)
+         if (result.status === 404){
+           
+           setError(404);
+           return;
+         }
          if (!result.ok){
            throw new Error('Gögn ekki í lagi')
          }
+        
 
          json = await result.json();
          console.log(json)
@@ -41,7 +49,6 @@ export function News({ category, allNews = false}) {
          setError('Gat ekki sótt gögn.');
          return;
        } finally {
-         console.log('setLoading False')
          setLoading(false);
        }
 
@@ -51,6 +58,9 @@ export function News({ category, allNews = false}) {
      fetchData();
    }, [category, allNews]);
 
+   if (404){
+     
+   }
    if (error) {
     return (
       <p>Villa kom upp: {error}</p>
@@ -69,29 +79,28 @@ export function News({ category, allNews = false}) {
       <p>Villa kom upp! </p>
       )
     }
-    console.log(news.items.slice(0, 5))
-    console.log('hvað er category?', category)
+
   let articles = news.items 
   console.log(allNews)
   if(!allNews){
     articles = news.items.slice(0, 5)
   }
-  console.log(articles)
+
  return(
   <div className={s.news__container}>
-    <h2>{category.title}</h2>
+    <h2>{news.title}</h2>
     <ul className={s.news__list}> 
      {news.items.length === 0 && (
        <li>Engar fréttir</li>
      )}
      {articles.length > 0 && articles.map(({title, link}) => {
         return (
-        <li className={s.news__item}><a href={link}>{title}</a></li>
+        <li className={s.news__item}><Link to={link}>{title}</Link></li>
           )
      })}
    </ul>
    <p>
-        {!allNews ? <a href={category.id}>Allar fréttir</a> : <a href="/">Tilbaka</a> }
+        {!allNews ? <Link to={category.id}>Allar fréttir</Link> : <Link to="/">Tilbaka</Link> }
       </p> 
   </div>
  )

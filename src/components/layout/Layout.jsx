@@ -1,3 +1,5 @@
+import {  Link } from 'react-router-dom';
+
 import s from './Layout.module.scss';
 
 export function Layout({ title, children }) {
@@ -11,7 +13,7 @@ export function Layout({ title, children }) {
       </main>
       <footer className={s.layout__footer}>
         <hr/>
-        <p>Fréttir frá <a href="https://RUV.is">RÚV</a></p>
+        <p>Fréttir frá <Link to={`https://RUV.is`}>RÚV</Link></p>
       </footer>
     </div> );
 }

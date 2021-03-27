@@ -1,6 +1,10 @@
 
 export function NotFound() {
   return (
-    <div> 404 Not Found </div>
+    <div> 
+      <h2>
+        404 fannst ekki 
+      </h2>
+    </div>
   )
 }
